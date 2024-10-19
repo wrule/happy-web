@@ -31,7 +31,7 @@ function prefixer(port: number, configs: ProxyConfigExt[]) {
 
 prefixer(8821, [
   {
-    prefix: '/jimao/huoshenshan',
+    prefix: '/jimao/xfiregod',
     target: 'http://xfiregod.perfma-inc.com',
     on: {
       proxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
@@ -39,6 +39,34 @@ prefixer(8821, [
         if (contentType.startsWith('text/html')) {
           const html = responseBuffer.toString('utf8');
           return htmlPrefixer('/jimao/huoshenshan', html);
+        }
+        return responseBuffer;
+      }),
+    },
+  },
+  {
+    prefix: '/jimao/xsea',
+    target: 'http://10.10.30.103:8081',
+    on: {
+      proxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
+        const contentType = proxyRes.headers['content-type']?.toLowerCase() ?? '';
+        if (contentType.startsWith('text/html')) {
+          const html = responseBuffer.toString('utf8');
+          return htmlPrefixer('/jimao/xsea', html);
+        }
+        return responseBuffer;
+      }),
+    },
+  },
+  {
+    prefix: '/jimao/tocean',
+    target: 'http://10.10.226.33:8088',
+    on: {
+      proxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
+        const contentType = proxyRes.headers['content-type']?.toLowerCase() ?? '';
+        if (contentType.startsWith('text/html')) {
+          const html = responseBuffer.toString('utf8');
+          return htmlPrefixer('/jimao/tocean', html);
         }
         return responseBuffer;
       }),
