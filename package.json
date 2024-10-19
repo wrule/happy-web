@@ -16,5 +16,8 @@
     "nodemon": "^3.1.7",
     "pm2": "^5.4.2",
     "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "http-proxy-middleware": "^3.0.3"
   }
 }
