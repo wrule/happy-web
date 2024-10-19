@@ -9,19 +9,19 @@ interface ProxyConfigExt extends ProxyConfig {
   prefix: string;
 }
 
-function prefixer(port: number) {
+function prefixer(port: number, configs: ProxyConfigExt[]) {
   const app = express();
-  const a: ProxyConfigExt = {
-    prefix: '',
-    target: 'http://www.baidu.com',
-    changeOrigin: true,
-    headers: { Connection: 'keep-alive' },
-    cookieDomainRewrite: '',
-  };
-  const proxyMiddleware = createProxyMiddleware<Request, Response>(a);
-  app.use('/jimao', proxyMiddleware);
+  configs.forEach((config) => {
+    const proxyMiddleware = createProxyMiddleware<Request, Response>({
+      changeOrigin: true,
+      headers: { Connection: 'keep-alive' },
+      cookieDomainRewrite: '',
+      ...config,
+    });
+    app.use(config.prefix, proxyMiddleware);
+  });
   app.listen(port);
   console.log(`prefixer works on port`, port);
 }
 
-prefixer(8821);
+prefixer(8821, []);
