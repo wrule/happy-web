@@ -4,6 +4,7 @@ import { IncomingMessage, ServerResponse } from 'http';
 import { createProxyMiddleware, responseInterceptor } from 'http-proxy-middleware';
 import type { Filter, Options, RequestHandler } from 'http-proxy-middleware';
 import { JSDOM } from 'jsdom';
+import htmlPrefixer from './prefixer/html.js';
 
 type ProxyConfig = Parameters<typeof createProxyMiddleware<Request, Response>>[0];
 export
@@ -37,14 +38,7 @@ prefixer(8821, [
         const contentType = proxyRes.headers['content-type']?.toLowerCase() ?? '';
         if (contentType.startsWith('text/html')) {
           const html = responseBuffer.toString('utf8');
-          const htmlDOM = new JSDOM(html);
-          htmlDOM.window.document.querySelectorAll('script, img, iframe').forEach((item: any) => {
-            item.src = '/jimao/huoshenshan' + item.src;
-          });
-          htmlDOM.window.document.querySelectorAll('link').forEach((item) => {
-            item.href = '/jimao/huoshenshan' + item.href;
-          });
-          return htmlDOM.serialize();
+          return htmlPrefixer('/jimao/huoshenshan', html);
         }
         return responseBuffer;
       }),
