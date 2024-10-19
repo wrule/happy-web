@@ -5,6 +5,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import type { Filter, Options, RequestHandler } from 'http-proxy-middleware';
 
 type ProxyConfig = Parameters<typeof createProxyMiddleware<Request, Response>>[0];
+export
 interface ProxyConfigExt extends ProxyConfig {
   prefix: string;
 }
