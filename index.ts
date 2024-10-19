@@ -18,6 +18,7 @@ function prefixer(port: number, configs: ProxyConfigExt[]) {
       cookieDomainRewrite: '',
       ...config,
     });
+    console.log('prefixer', config.prefix, config.target);
     app.use(config.prefix, proxyMiddleware);
   });
   app.listen(port);
