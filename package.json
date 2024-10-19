@@ -1,0 +1,19 @@
+{
+  "name": "happy-web",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "dev": "nodemon index.js",
+    "start": "pm2 start index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "pm2": "^5.4.2",
+    "typescript": "^5.6.3"
+  }
+}
