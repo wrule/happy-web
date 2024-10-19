@@ -6,10 +6,12 @@ import type { Filter, Options, RequestHandler } from 'http-proxy-middleware';
 const app = express();
 
 const proxyMiddleware = createProxyMiddleware<Request, Response>({
-  target: 'http://www.example.org/api',
+  target: 'http://www.baidu.com',
   changeOrigin: true,
+  headers: { Connection: 'keep-alive' },
+  cookieDomainRewrite: '',
 });
 
-app.use('/api', proxyMiddleware);
+app.use('/jimao', proxyMiddleware);
 
 app.listen(3000);
