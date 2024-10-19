@@ -18,11 +18,16 @@ function prefixer(port: number, configs: ProxyConfigExt[]) {
       cookieDomainRewrite: '',
       ...config,
     });
-    console.log('prefixer', config.prefix, config.target);
+    console.log('prefixer', `http://127.0.0.1:${port}${config.prefix}`, '->', config.target);
     app.use(config.prefix, proxyMiddleware);
   });
   app.listen(port);
   console.log(`prefixer works on port`, port);
 }
 
-prefixer(8821, []);
+prefixer(8821, [
+  {
+    prefix: '/jimao/huoshenshan',
+    target: 'http://xfiregod.perfma-inc.com',
+  },
+]);
