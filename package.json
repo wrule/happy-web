@@ -1,7 +1,7 @@
 {
   "name": "happy-web",
   "version": "1.0.0",
-  "main": "index.js",
+  "module": "index.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
