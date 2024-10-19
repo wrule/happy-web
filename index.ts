@@ -1,7 +1,7 @@
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import { IncomingMessage, ServerResponse } from 'http';
-import { createProxyMiddleware } from 'http-proxy-middleware';
+import { createProxyMiddleware, responseInterceptor } from 'http-proxy-middleware';
 import type { Filter, Options, RequestHandler } from 'http-proxy-middleware';
 
 type ProxyConfig = Parameters<typeof createProxyMiddleware<Request, Response>>[0];
@@ -30,5 +30,10 @@ prefixer(8821, [
   {
     prefix: '/jimao/huoshenshan',
     target: 'http://xfiregod.perfma-inc.com',
+    on: {
+      proxyRes: responseInterceptor(async (responseBuffer, proxyRes, req, res) => {
+        return responseBuffer;
+      }),
+    },
   },
 ]);
