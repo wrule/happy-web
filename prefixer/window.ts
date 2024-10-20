@@ -1,0 +1,4 @@
+
+function windowPrefixer(prefix: string) {
+
+}
