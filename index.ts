@@ -38,7 +38,7 @@ prefixer(8821, [
         const contentType = proxyRes.headers['content-type']?.toLowerCase() ?? '';
         if (contentType.startsWith('text/html')) {
           const html = responseBuffer.toString('utf8');
-          return htmlPrefixer('/jimao/xfiregod', html);
+          return await htmlPrefixer('/jimao/xfiregod', html);
         }
         return responseBuffer;
       }),

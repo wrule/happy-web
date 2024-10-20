@@ -1,7 +1,8 @@
+import fs from 'fs/promises';
 import { JSDOM } from 'jsdom';
 
 export default
-function htmlPrefixer(prefix: string, html: string) {
+async function htmlPrefixer(prefix: string, html: string) {
   const htmlDOM = new JSDOM(html);
   const document = htmlDOM.window.document;
   htmlDOM.window.document.querySelectorAll('script, img, iframe')
@@ -21,7 +22,10 @@ function htmlPrefixer(prefix: string, html: string) {
   }
   prefixerScript.defer = true;
   prefixerScript.removeAttribute('src');
-  prefixerScript.textContent = 'console.log(1234);';
+  prefixerScript.textContent = `
+    ${await fs.readFile('./prefixer/window.js', 'utf8')}
+    windowPrefixer('${prefix}');
+  `.trim();
 
   return htmlDOM.serialize();
 }
